@@ -2,6 +2,7 @@
 // Copyright 2026 Humyn LLC
 
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
@@ -12,6 +13,63 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 async function read(relativePath) {
   return readFile(path.join(root, relativePath), "utf8");
 }
+
+async function readBytes(relativePath) {
+  return readFile(path.join(root, relativePath));
+}
+
+const sha256 = (contents) => createHash("sha256").update(contents).digest("hex");
+
+test("vendors the exact revision-3 brand contract and rejects Studio identity drift", async () => {
+  const [manifestSource, schemaSource, packageSource, readme, localIcon] = await Promise.all([
+    readBytes("brand/brand-manifest.v1.json"),
+    readBytes("brand/brand-manifest.v1.schema.json"),
+    read("package.json"),
+    read("README.md"),
+    readBytes("docs/assets/memi-icon-dark.png"),
+  ]);
+
+  assert.equal(
+    sha256(manifestSource),
+    "8b7ca68e836ee0362fe1763b067dacb8e500d5037cd12791f6c5aaf0e80a2755",
+  );
+  assert.equal(
+    sha256(schemaSource),
+    "ef3eaed367e20c3d54ef8284d84c8195d40fb5916fcd525fcd77243a0353e473",
+  );
+
+  const manifest = JSON.parse(manifestSource);
+  const packageMetadata = JSON.parse(packageSource);
+  const studio = manifest.products.find((product) => product.id === "studio");
+  assert.ok(studio, "Canonical Studio product is required");
+  assert.equal(manifest.brandRevision, 3);
+  assert.equal(studio.name, "memi Studio");
+  assert.equal(studio.status, "available");
+  assert.equal(studio.role, "Native macOS companion for supervised agent workflows and artifact review.");
+  assert.deepEqual(studio.packages, []);
+
+  assert.match(readme, /^# memi Studio$/m);
+  assert.ok(readme.includes(studio.role));
+  assert.match(readme, /\*\*Status:\*\* Available/);
+  assert.ok(readme.includes(studio.urls.repository));
+  assert.ok(readme.includes(studio.urls.download));
+  assert.equal(packageMetadata.name, "memi-studio");
+  assert.equal(packageMetadata.private, true);
+  assert.equal(packageMetadata.homepage, studio.urls.repository);
+  assert.equal(
+    packageMetadata.repository.url.replace(/^git\+/, "").replace(/\.git$/, ""),
+    studio.urls.repository,
+  );
+  assert.equal(packageMetadata.license, studio.license.spdx);
+  assert.ok(readme.includes(studio.license.name));
+  assert.ok(readme.includes(studio.license.futureLicense.effectiveDate));
+
+  const appIcon = studio.icons.find((icon) => icon.purpose === "app");
+  assert.ok(appIcon, "Canonical Studio app icon is required");
+  assert.equal(appIcon.id, "studio-app-icon");
+  assert.equal(sha256(localIcon), appIcon.sha256);
+  assert.ok(readme.includes(appIcon.alt));
+});
 
 test("active code and release operations use organization-owned repositories", async () => {
   const [packageSource, tauriSource, autoUpdater, credentials, memiCi, notice, appSource] = await Promise.all([
