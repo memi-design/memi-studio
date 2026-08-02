@@ -1,13 +1,13 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/memi-icon-dark.png">
-    <img src="docs/assets/memi-icon-light.png" width="140" alt="memi Studio app icon: four glass hearts forming a clover">
+    <img src="docs/assets/memi-icon-light.png" width="140" alt="Memi Studio app icon">
   </picture>
 </p>
 
 # memi Studio
 
-> Current native macOS companion for supervised Codex and Claude Code repository runs, live traces, project context, and artifact review.
+> Native macOS companion for supervised agent workflows and artifact review.
 
 [![License: FSL-1.1-ALv2](https://img.shields.io/badge/license-FSL--1.1--ALv2-blue.svg)](./LICENSE)
 [![Future License: Apache-2.0](https://img.shields.io/badge/future_license-Apache--2.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
@@ -16,6 +16,8 @@
 memi Studio is the current macOS companion to the [memi engine](https://github.com/memi-design/memi). It supervises agent runs and keeps their traces, context, and artifacts together; it does not replace the memi CLI or MCP server. The engine ships as the `@memi-design/cli` npm package, while this repository ships the signed, notarized macOS DMG. Product documentation lives at [memoire.cv](https://memoire.cv).
 
 ## Status
+
+**Status:** Available.
 
 This repository is the **home** for the current memi Studio Tauri application. The macOS shell lives here; the npm engine, MCP server, harness runtime, and packaged sidecar assets live in [`memi-design/memi`](https://github.com/memi-design/memi).
 
@@ -75,7 +77,7 @@ The sidecar is built and signed in the [memi engine repo](https://github.com/mem
 
 ## License
 
-**Functional Source License, Version 1.1, with an Apache License 2.0 future license (FSL-1.1-ALv2).**
+**Functional Source License 1.1 with Apache-2.0 future license (FSL-1.1-ALv2).**
 
 memi Studio is source-available today for any [Permitted Purpose](./LICENSE#permitted-purpose) — internal use, non-commercial education, non-commercial research, and professional services on behalf of licensees. The code is source-available, not open source, while it is under the FSL. **Competing commercial use is not permitted.**
 
