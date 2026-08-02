@@ -21,23 +21,23 @@ try {
   const assetPath = join(root, asset);
 
   await writeFile(assetPath, "runtime-one");
-  assert.equal(await cachedAssetMatches(root, "sarveshsea/memi", "runtime-v0.18.2", asset), false);
-  assert.equal((await cachedAssetState(root, "sarveshsea/memi", "runtime-v0.18.2", asset)).status, "missing-metadata");
+  assert.equal(await cachedAssetMatches(root, "memi-design/memi", "runtime-v0.18.2", asset), false);
+  assert.equal((await cachedAssetState(root, "memi-design/memi", "runtime-v0.18.2", asset)).status, "missing-metadata");
 
-  await rememberCachedAsset(root, asset, "sarveshsea/memi", "runtime-v0.18.2", assetPath);
-  assert.equal(await cachedAssetMatches(root, "sarveshsea/memi", "runtime-v0.18.2", asset), true);
-  assert.equal((await cachedAssetState(root, "sarveshsea/memi", "runtime-v0.18.2", asset)).status, "verified");
-  assert.equal(await cachedAssetMatches(root, "sarveshsea/memi", "runtime-v0.18.3", asset), false);
-  assert.equal((await cachedAssetState(root, "sarveshsea/memi", "runtime-v0.18.3", asset)).status, "stale-metadata");
+  await rememberCachedAsset(root, asset, "memi-design/memi", "runtime-v0.18.2", assetPath);
+  assert.equal(await cachedAssetMatches(root, "memi-design/memi", "runtime-v0.18.2", asset), true);
+  assert.equal((await cachedAssetState(root, "memi-design/memi", "runtime-v0.18.2", asset)).status, "verified");
+  assert.equal(await cachedAssetMatches(root, "memi-design/memi", "runtime-v0.18.3", asset), false);
+  assert.equal((await cachedAssetState(root, "memi-design/memi", "runtime-v0.18.3", asset)).status, "stale-metadata");
 
   await writeFile(assetPath, "runtime-two");
-  assert.equal(await cachedAssetMatches(root, "sarveshsea/memi", "runtime-v0.18.2", asset), false);
-  assert.equal((await cachedAssetState(root, "sarveshsea/memi", "runtime-v0.18.2", asset)).status, "stale-metadata");
+  assert.equal(await cachedAssetMatches(root, "memi-design/memi", "runtime-v0.18.2", asset), false);
+  assert.equal((await cachedAssetState(root, "memi-design/memi", "runtime-v0.18.2", asset)).status, "stale-metadata");
 
   const cache = await readAssetCache(root);
   assert.equal(
     assetCacheEntryMatches(cache.assets[asset], {
-      repo: "sarveshsea/memi",
+      repo: "memi-design/memi",
       tag: "runtime-v0.18.2",
       asset,
       sha256: cache.assets[asset].sha256,

@@ -5,7 +5,7 @@
 //
 // On launch:
 //   1. Quietly checks the configured endpoint (latest.json on the
-//      sarveshsea/memi-studio "latest" release).
+//      memi-design/memi-studio "latest" release).
 //   2. If a new version is available, downloads + verifies the signature
 //      against the embedded minisign public key, then prompts the user.
 //   3. On accept, applies the update and relaunches.

@@ -4093,7 +4093,7 @@ export function App() {
     });
   });
   const stableOpenWorkspaceFromPacket = useStableCallback(() => { void handleOpenWorkspace(); });
-  const stableViewPacketExamples = useStableCallback(() => window.open("https://github.com/sarveshsea/memi#examples", "_blank"));
+  const stableViewPacketExamples = useStableCallback(() => window.open("https://github.com/memi-design/memi#examples", "_blank"));
   const stableApplyStarterPrompt = useStableCallback(applyStarterPrompt);
   const workPacketStarters = useMemo(
     () => STARTER_PROMPTS.slice(0, 4).map((starter) => ({
