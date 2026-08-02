@@ -1,27 +1,31 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/memi-icon-dark.png">
-    <img src="docs/assets/memi-icon-light.png" width="140" alt="Mémoire Studio app icon: four glass hearts forming a clover">
+    <img src="docs/assets/memi-icon-light.png" width="140" alt="memi Studio app icon: four glass hearts forming a clover">
   </picture>
 </p>
 
-# Mémoire Studio
+# memi Studio
 
-> Native macOS workbench for Codex-first repository runs, Claude Code handoff, live traces, project context, and artifact review.
+> Current native macOS companion for supervised Codex and Claude Code repository runs, live traces, project context, and artifact review.
 
 [![License: FSL-1.1-ALv2](https://img.shields.io/badge/license-FSL--1.1--ALv2-blue.svg)](./LICENSE)
 [![Future License: Apache-2.0](https://img.shields.io/badge/future_license-Apache--2.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![macOS 11.0+](https://img.shields.io/badge/macOS-11.0%2B-lightgrey.svg)](#install)
 
-Mémoire Studio is the desktop counterpart to the Mémoire engine ([github.com/sarveshsea/memi](https://github.com/sarveshsea/memi)). The engine ships as the `@memi-design/cli` npm package and an MCP server. This repo ships as a signed, notarized macOS DMG.
+memi Studio is the current macOS companion to the [memi engine](https://github.com/memi-design/memi). It supervises agent runs and keeps their traces, context, and artifacts together; it does not replace the memi CLI or MCP server. The engine ships as the `@memi-design/cli` npm package, while this repository ships the signed, notarized macOS DMG. Product documentation lives at [memoire.cv](https://memoire.cv).
 
 ## Status
 
-This repository is the **home** for the Mémoire Studio Tauri application. The macOS shell lives here; the npm engine, MCP server, harness runtime, and packaged sidecar assets live in `sarveshsea/memi`.
+This repository is the **home** for the current memi Studio Tauri application. The macOS shell lives here; the npm engine, MCP server, harness runtime, and packaged sidecar assets live in [`memi-design/memi`](https://github.com/memi-design/memi).
 
-Track engine release progress in the [memi changelog](https://github.com/sarveshsea/memi/blob/main/CHANGELOG.md).
+Track engine release progress in the [memi changelog](https://github.com/memi-design/memi/blob/main/CHANGELOG.md).
 
 The default product surface is a single workbench: workspace picker, Codex/Claude readiness, composer, run trace, artifacts, context, and settings. Scenario Lab, Mermaid Board, Figma driver, Automations, Marketplace Notes, and secondary harnesses remain available as advanced integrations.
+
+### Canvas direction
+
+The product direction includes a future transition to memi Canvas, where the supervised workbench can become part of the broader repository-backed canvas workflow. That transition depends on Canvas meeting its security, release, and effectful-workflow gates. No release date is being announced here; until those gates are met and a release is published, memi Studio remains the supported companion described in this repository.
 
 ## Install
 
@@ -30,12 +34,12 @@ DMG releases are published from this repository's GitHub Releases.
 Install the latest release:
 
 ```bash
-brew install --cask sarveshsea/memi/memi-studio
+brew install --cask memi-design/memi/memi-studio
 ```
 
-Direct DMG downloads are attached to [memi-studio releases](https://github.com/sarveshsea/memi-studio/releases/latest).
+Direct DMG downloads are attached to [memi-studio releases](https://github.com/memi-design/memi-studio/releases/latest).
 
-## What Mémoire Studio is
+## What memi Studio is
 
 - **One workbench** — pick a workspace, verify agent readiness, compose the task, watch the run trace, and review artifacts/context without switching products.
 - **Codex primary, Claude supported** — Codex is the default harness; Claude Code is the supported alternate. Other harnesses are advanced integrations.
@@ -61,21 +65,21 @@ npm run test:live-e2e -- --skip-live-agents
 
 ## Architecture
 
-Mémoire Studio is a Tauri 2 application:
+memi Studio is a Tauri 2 application:
 
 - **Rust shell** (`src-tauri/`) — webview host, Tauri commands, secure subprocess management.
 - **React/TypeScript frontend** (`src/`) — workbench UI, composer, manager view, surfaces.
 - **Node.js sidecar** (`memi-studio-runtime`, fetched from engine releases) — harness drivers, MCP server, Figma bridge, project memory, all behind a local-loopback HTTP/WebSocket API on `127.0.0.1:8765`.
 
-The sidecar is built and signed in the [Mémoire engine repo](https://github.com/sarveshsea/memi) and downloaded by this repo's CI at the version pinned in `package.json`.
+The sidecar is built and signed in the [memi engine repo](https://github.com/memi-design/memi) and downloaded by this repo's CI at the version pinned in `package.json`.
 
 ## License
 
 **Functional Source License, Version 1.1, with an Apache License 2.0 future license (FSL-1.1-ALv2).**
 
-Mémoire Studio is source-available today for any [Permitted Purpose](./LICENSE#permitted-purpose) — internal use, non-commercial education, non-commercial research, and professional services on behalf of licensees. **Competing commercial use is not permitted.**
+memi Studio is source-available today for any [Permitted Purpose](./LICENSE#permitted-purpose) — internal use, non-commercial education, non-commercial research, and professional services on behalf of licensees. The code is source-available, not open source, while it is under the FSL. **Competing commercial use is not permitted.**
 
-On **2028-05-09** — the second anniversary of first publication — Mémoire Studio automatically becomes available under the Apache License, Version 2.0.
+On **2028-05-09** — the second anniversary of first publication — memi Studio automatically becomes available under the Apache License, Version 2.0.
 
 See [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE) for full terms.
 
@@ -87,9 +91,9 @@ A `CONTRIBUTING.md` with the full guidelines lands alongside the application car
 
 ## Related projects
 
-- [`sarveshsea/memi`](https://github.com/sarveshsea/memi) — Mémoire engine, CLI, and MCP server (MIT)
-- [`sarveshsea/mermaid-jam`](https://github.com/sarveshsea/mermaid-jam) — Local-only FigJam plugin for Mermaid diagrams
-- [`sarveshsea/memoire-community-notes`](https://github.com/sarveshsea/memoire-community-notes) — Community Mémoire Notes marketplace
+- [`memi-design/memi`](https://github.com/memi-design/memi) — memi engine, CLI, MCP server, and focused agent skills (MIT)
+- [`memi-design/design-skills`](https://github.com/memi-design/design-skills) — curated product-design workflows for AI coding agents (MIT)
+- [`memi-design/mermaid-jam`](https://github.com/memi-design/mermaid-jam) — local-only FigJam plugin for Mermaid diagrams
 
 ---
 

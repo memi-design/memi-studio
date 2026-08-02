@@ -2,7 +2,7 @@
 
 > Single source of truth for the secrets that ship Mémoire Studio. Check this when something stops signing/notarizing/updating, and revisit it on the dates below.
 
-All secrets live in **`sarveshsea/memi-studio` → Settings → Secrets and Variables → Actions**.
+All secrets live in **`memi-design/memi-studio` → Settings → Secrets and Variables → Actions**.
 
 Local developer builds intentionally do **not** require the updater private key. `npm run tauri:build` merges `src-tauri/tauri.local.conf.json`, which disables `bundle.createUpdaterArtifacts` so it emits the `.app` and `.dmg` without trying to sign the updater tarball. Release builds use `npm run tauri:build:release` and still require `TAURI_SIGNING_PRIVATE_KEY`.
 
@@ -35,7 +35,7 @@ Local developer builds intentionally do **not** require the updater private key.
 Add these to your calendar:
 
 - **2030-11-08** — "Rotate Mémoire Studio Apple Developer ID cert (~6 months before 2031-05-08 expiry)"
-- **Annually on May 1** — "Audit `sarveshsea/memi-studio` secrets: any unused? Any rotated by Apple/GitHub? Run `gh secret list --repo sarveshsea/memi-studio`"
+- **Annually on May 1** — "Audit `memi-design/memi-studio` secrets: any unused? Any rotated by Apple/GitHub? Run `gh secret list --repo memi-design/memi-studio`"
 
 ## Rotation runbooks
 
@@ -61,12 +61,12 @@ When 2031-05-08 approaches, OR if the cert is revoked:
    ```
 4. Update 3 secrets via `gh`
    ```bash
-   gh secret set APPLE_CERTIFICATE_BASE64 --repo sarveshsea/memi-studio < cert.p12.base64
-   gh secret set APPLE_CERTIFICATE_PASSWORD --repo sarveshsea/memi-studio --body "$NEW_PASSWORD"
-   gh secret set APPLE_SIGNING_IDENTITY --repo sarveshsea/memi-studio --body "$NEW_SHA1"
+   gh secret set APPLE_CERTIFICATE_BASE64 --repo memi-design/memi-studio < cert.p12.base64
+   gh secret set APPLE_CERTIFICATE_PASSWORD --repo memi-design/memi-studio --body "$NEW_PASSWORD"
+   gh secret set APPLE_SIGNING_IDENTITY --repo memi-design/memi-studio --body "$NEW_SHA1"
    ```
 5. Wipe local files: `rm cert.p12 cert.p12.base64`
-6. Trigger a test release: `gh workflow run release.yml --repo sarveshsea/memi-studio -f tag=<latest-tag>`
+6. Trigger a test release: `gh workflow run release.yml --repo memi-design/memi-studio -f tag=<latest-tag>`
 
 ### App-specific password (most common rotation)
 
@@ -75,7 +75,7 @@ If you've changed your Apple ID password, or if notarization starts failing with
 1. Go to https://appleid.apple.com/account/manage → Sign-In and Security → App-Specific Passwords
 2. Revoke the old "memi-studio notarization" password
 3. Generate a new one with the same label
-4. `gh secret set APPLE_APP_SPECIFIC_PASSWORD --repo sarveshsea/memi-studio --body "<new-xxxx-xxxx-xxxx-xxxx>"`
+4. `gh secret set APPLE_APP_SPECIFIC_PASSWORD --repo memi-design/memi-studio --body "<new-xxxx-xxxx-xxxx-xxxx>"`
 5. Re-trigger the most recent release to verify
 
 ### Tauri updater private key (rare but high-stakes)
@@ -89,7 +89,7 @@ If the private key leaks or is suspected compromised:
 2. Update tauri.conf.json `plugins.updater.pubkey` to the new public key
 3. Update the secret:
    ```bash
-   gh secret set TAURI_SIGNING_PRIVATE_KEY --repo sarveshsea/memi-studio < /tmp/new-updater.key
+   gh secret set TAURI_SIGNING_PRIVATE_KEY --repo memi-design/memi-studio < /tmp/new-updater.key
    ```
 4. Wipe local: `rm /tmp/new-updater.key /tmp/new-updater.key.pub`
 5. **CRITICAL:** Ship a new version (manual download required, since the old auto-update path is now dead). Include a release note explaining the migration.
@@ -108,7 +108,7 @@ Quick sanity checks:
 
 ```bash
 # Are all 9 secrets configured?
-gh secret list --repo sarveshsea/memi-studio
+gh secret list --repo memi-design/memi-studio
 # Expected: APPLE_APP_SPECIFIC_PASSWORD, APPLE_CERTIFICATE_BASE64,
 #           APPLE_CERTIFICATE_PASSWORD, APPLE_ID, APPLE_SIGNING_IDENTITY,
 #           APPLE_TEAM_ID, KEYCHAIN_PASSWORD,
@@ -120,7 +120,7 @@ security find-certificate -c "Developer ID Application: Humyn LLC." -a -p \
   | grep notAfter
 
 # Latest release working?
-gh release view --repo sarveshsea/memi-studio --json assets \
+gh release view --repo memi-design/memi-studio --json assets \
   | jq -r '.assets[].name'
 # Expected: 2 .dmg files, 2 .app.tar.gz, 2 .app.tar.gz.sig, latest.json, SHA256SUMS
 

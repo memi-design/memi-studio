@@ -14,13 +14,14 @@ async function read(relativePath) {
 }
 
 test("active code and release operations use organization-owned repositories", async () => {
-  const [packageSource, tauriSource, autoUpdater, credentials, memiCi, notice] = await Promise.all([
+  const [packageSource, tauriSource, autoUpdater, credentials, memiCi, notice, appSource] = await Promise.all([
     read("package.json"),
     read("src-tauri/tauri.conf.json"),
     read("src/auto-updater.ts"),
     read("docs/CREDENTIALS.md"),
     read(".github/workflows/memi-ci.yml"),
     read("NOTICE"),
+    read("src/App.tsx"),
   ]);
   const packageMetadata = JSON.parse(packageSource);
   const tauriConfig = JSON.parse(tauriSource);
@@ -36,6 +37,7 @@ test("active code and release operations use organization-owned repositories", a
   assert.doesNotMatch(credentials, /sarveshsea\/memi-studio/);
   assert.match(memiCi, /uses: memi-design\/memi@v2\.3\.0/);
   assert.match(notice, /https:\/\/github\.com\/memi-design\/memi/);
+  assert.match(appSource, /https:\/\/github\.com\/memi-design\/memi#examples/);
 });
 
 test("README states the current companion role, source-available license, and undated Canvas direction", async () => {
