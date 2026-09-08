@@ -13,13 +13,13 @@
 [![Future License: Apache-2.0](https://img.shields.io/badge/future_license-Apache--2.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![macOS 11.0+](https://img.shields.io/badge/macOS-11.0%2B-lightgrey.svg)](#install)
 
-Mémoire Studio is the desktop counterpart to the Mémoire engine ([github.com/sarveshsea/memi](https://github.com/sarveshsea/memi)). The engine ships as the `@memi-design/cli` npm package and an MCP server. This repo ships as a signed, notarized macOS DMG.
+Mémoire Studio is the desktop counterpart to the Mémoire engine ([github.com/memi-design/memi](https://github.com/memi-design/memi)). The engine ships as the `@memi-design/cli` npm package and an MCP server. This repo ships as a signed, notarized macOS DMG.
 
 ## Status
 
-This repository is the **home** for the Mémoire Studio Tauri application. The macOS shell lives here; the npm engine, MCP server, harness runtime, and packaged sidecar assets live in `sarveshsea/memi`.
+This repository is the **home** for the Mémoire Studio Tauri application. The macOS shell lives here; the npm engine, MCP server, harness runtime, and packaged sidecar assets live in `memi-design/memi`.
 
-Track engine release progress in the [memi changelog](https://github.com/sarveshsea/memi/blob/main/CHANGELOG.md).
+Track engine release progress in the [memi changelog](https://github.com/memi-design/memi/blob/main/CHANGELOG.md).
 
 The default product surface is a single workbench: workspace picker, Codex/Claude readiness, composer, run trace, artifacts, context, and settings. Scenario Lab, Mermaid Board, Figma driver, Automations, Marketplace Notes, and secondary harnesses remain available as advanced integrations.
 
@@ -30,10 +30,10 @@ DMG releases are published from this repository's GitHub Releases.
 Install the latest release:
 
 ```bash
-brew install --cask sarveshsea/memi/memi-studio
+brew install --cask memi-design/memi/memi-studio
 ```
 
-Direct DMG downloads are attached to [memi-studio releases](https://github.com/sarveshsea/memi-studio/releases/latest).
+Direct DMG downloads are attached to [memi-studio releases](https://github.com/memi-design/memi-studio/releases/latest).
 
 ## What Mémoire Studio is
 
@@ -67,7 +67,7 @@ Mémoire Studio is a Tauri 2 application:
 - **React/TypeScript frontend** (`src/`) — workbench UI, composer, manager view, surfaces.
 - **Node.js sidecar** (`memi-studio-runtime`, fetched from engine releases) — harness drivers, MCP server, Figma bridge, project memory, all behind a local-loopback HTTP/WebSocket API on `127.0.0.1:8765`.
 
-The sidecar is built and signed in the [Mémoire engine repo](https://github.com/sarveshsea/memi) and downloaded by this repo's CI at the version pinned in `package.json`.
+The sidecar is built and signed in the [Mémoire engine repo](https://github.com/memi-design/memi) and downloaded by this repo's CI at the version pinned in `package.json`.
 
 ## License
 
@@ -87,8 +87,8 @@ A `CONTRIBUTING.md` with the full guidelines lands alongside the application car
 
 ## Related projects
 
-- [`sarveshsea/memi`](https://github.com/sarveshsea/memi) — Mémoire engine, CLI, and MCP server (MIT)
-- [`sarveshsea/mermaid-jam`](https://github.com/sarveshsea/mermaid-jam) — Local-only FigJam plugin for Mermaid diagrams
+- [`memi-design/memi`](https://github.com/memi-design/memi) — Mémoire engine, CLI, and MCP server (MIT)
+- [`memi-design/mermaid-jam`](https://github.com/memi-design/mermaid-jam) — Local-only FigJam plugin for Mermaid diagrams
 - [`sarveshsea/memoire-community-notes`](https://github.com/sarveshsea/memoire-community-notes) — Community Mémoire Notes marketplace
 
 ---
