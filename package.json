@@ -63,7 +63,7 @@
     "jsdom": "^29.1.1",
     "typescript": "6.0.3",
     "vite": "8.1.5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "overrides": {
     "dompurify": "3.4.12"
